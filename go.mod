@@ -1,3 +1,3 @@
-module github.com/tabbed/hoare
+module github.com/tabbed/pqtype
 
 go 1.15

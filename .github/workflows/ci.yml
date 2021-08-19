@@ -6,15 +6,6 @@ on:
   pull_request:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2.3.4
-    - uses: actions/setup-go@v2
-      with:
-        go-version: '1.17'
-    - run: go build ./...
-
   tests:
     runs-on: ubuntu-latest
     services:
@@ -28,18 +19,12 @@ jobs:
         - 5432:5432
         # needed because the postgres container does not provide a healthcheck
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-      mysql:
-        image: mysql:8
-        env:
-          MYSQL_ROOT_PASSWORD: mysecretpassword
-          MYSQL_DATABASE: mysql
-        ports:
-        - 3306:3306
     steps:
     - uses: actions/checkout@v2.3.4
     - uses: actions/setup-go@v2
       with:
         go-version: '1.17'
+    - run: go build ./...
     - run: go build ./...
       working-directory: tests
     - run: go test ./...
@@ -50,7 +35,3 @@ jobs:
         PG_DATABASE: postgres
         PG_PASSWORD: postgres
         PG_PORT: ${{ job.services.postgres.ports['5432'] }}
-        MYSQL_DATABASE: mysql
-        MYSQL_HOST: localhost
-        MYSQL_PORT: ${{ job.services.mysql.ports['3306'] }}
-        MYSQL_ROOT_PASSWORD: mysecretpassword
