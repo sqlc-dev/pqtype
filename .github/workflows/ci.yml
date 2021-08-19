@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:11
+        image: postgres:${{matrix.postgres}}
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -22,6 +22,7 @@ jobs:
     strategy:
       matrix:
         go: ['1.17', '1.16', '1.15', '1.14', '1.13']
+        postgres: ['11', '10']
     steps:
     - uses: actions/checkout@v2.3.4
     - uses: actions/setup-go@v2
