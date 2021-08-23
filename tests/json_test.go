@@ -42,6 +42,21 @@ func TestJSONRawMessage(t *testing.T) {
 				t.Errorf("jsonb mismatch (-want +got):\n%s", diff)
 			}
 		})
+		t.Run("/stdlib/"+payload, func(t *testing.T) {
+			var n json.RawMessage
+			if err := db.QueryRow(fmt.Sprintf(`SELECT '%s'::json`, payload)).Scan(&n); err != nil {
+				t.Fatal(err)
+			}
+			if diff := cmp.Diff(string(json.RawMessage(payload)), string(n)); diff != "" {
+				t.Errorf("json mismatch (-want +got):\n%s", diff)
+			}
+			if err := db.QueryRow(fmt.Sprintf(`SELECT '%s'::jsonb`, payload)).Scan(&n); err != nil {
+				t.Fatal(err)
+			}
+			if diff := cmp.Diff(string(json.RawMessage(payload)), string(n)); diff != "" {
+				t.Errorf("jsonb mismatch (-want +got):\n%s", diff)
+			}
+		})
 	}
 	t.Run("NULL", func(t *testing.T) {
 		var n pqtype.NullRawMessage
