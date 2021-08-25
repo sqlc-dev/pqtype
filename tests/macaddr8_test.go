@@ -61,7 +61,7 @@ func TestMacaddr8(t *testing.T) {
 			if diff := cmp.Diff(addr.output, cidr.Addr.String()); diff != "" {
 				t.Errorf("mismatch (-want +got):\n%s", diff)
 			}
-			if _, err := db.Exec(`SELECT trunc($1:macaddr8)`, cidr); err != nil {
+			if _, err := db.Exec(`SELECT trunc($1::macaddr8)`, cidr); err != nil {
 				t.Fatal(err)
 			}
 		})

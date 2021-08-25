@@ -87,7 +87,7 @@ func TestJSONRawMessage(t *testing.T) {
 		if diff := cmp.Diff(false, n.Valid); diff != "" {
 			t.Errorf("valid mismatch (-want +got):\n%s", diff)
 		}
-		if _, err := db.Exec(`SELECT jsonb_typeof($1)`, n); err != nil {
+		if _, err := db.Exec(`SELECT $1`, n); err != nil {
 			t.Fatal(err)
 		}
 	})
