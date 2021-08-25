@@ -55,6 +55,9 @@ func TestMacaddr(t *testing.T) {
 			if diff := cmp.Diff(addr.output, cidr.Addr.String()); diff != "" {
 				t.Errorf("mismatch (-want +got):\n%s", diff)
 			}
+			if _, err := db.Exec(`SELECT $1`, cidr); err != nil {
+				t.Fatal(err)
+			}
 		})
 	}
 	t.Run("NULL", func(t *testing.T) {
@@ -64,6 +67,9 @@ func TestMacaddr(t *testing.T) {
 		}
 		if diff := cmp.Diff(false, cidr.Valid); diff != "" {
 			t.Errorf("valid mismatch (-want +got):\n%s", diff)
+		}
+		if _, err := db.Exec(`SELECT $1`, cidr); err != nil {
+			t.Fatal(err)
 		}
 	})
 }
