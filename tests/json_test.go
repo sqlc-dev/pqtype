@@ -32,6 +32,9 @@ func TestJSONRawMessage(t *testing.T) {
 			if diff := cmp.Diff(string(json.RawMessage(payload)), string(n.RawMessage)); diff != "" {
 				t.Errorf("json mismatch (-want +got):\n%s", diff)
 			}
+			if _, err := db.Exec(`SELECT json_typeof($1)`, n); err != nil {
+				t.Fatal(err)
+			}
 			if err := db.QueryRow(fmt.Sprintf(`SELECT '%s'::jsonb`, payload)).Scan(&n); err != nil {
 				t.Fatal(err)
 			}
@@ -40,6 +43,9 @@ func TestJSONRawMessage(t *testing.T) {
 			}
 			if diff := cmp.Diff(string(json.RawMessage(payload)), string(n.RawMessage)); diff != "" {
 				t.Errorf("jsonb mismatch (-want +got):\n%s", diff)
+			}
+			if _, err := db.Exec(`SELECT jsonb_typeof($1)`, n); err != nil {
+				t.Fatal(err)
 			}
 		})
 		t.Run("/stdlib/"+payload, func(t *testing.T) {
@@ -50,11 +56,17 @@ func TestJSONRawMessage(t *testing.T) {
 			if diff := cmp.Diff(string(json.RawMessage(payload)), string(n)); diff != "" {
 				t.Errorf("json mismatch (-want +got):\n%s", diff)
 			}
+			if _, err := db.Exec(`SELECT json_typeof($1)`, n); err != nil {
+				t.Fatal(err)
+			}
 			if err := db.QueryRow(fmt.Sprintf(`SELECT '%s'::jsonb`, payload)).Scan(&n); err != nil {
 				t.Fatal(err)
 			}
 			if diff := cmp.Diff(string(json.RawMessage(payload)), string(n)); diff != "" {
 				t.Errorf("jsonb mismatch (-want +got):\n%s", diff)
+			}
+			if _, err := db.Exec(`SELECT jsonb_typeof($1)`, n); err != nil {
+				t.Fatal(err)
 			}
 		})
 	}
@@ -66,11 +78,17 @@ func TestJSONRawMessage(t *testing.T) {
 		if diff := cmp.Diff(false, n.Valid); diff != "" {
 			t.Errorf("valid mismatch (-want +got):\n%s", diff)
 		}
+		if _, err := db.Exec(`SELECT json_typeof($1)`, n); err != nil {
+			t.Fatal(err)
+		}
 		if err := db.QueryRow(`SELECT NULL::jsonb`).Scan(&n); err != nil {
 			t.Fatal(err)
 		}
 		if diff := cmp.Diff(false, n.Valid); diff != "" {
 			t.Errorf("valid mismatch (-want +got):\n%s", diff)
+		}
+		if _, err := db.Exec(`SELECT jsonb_typeof($1)`, n); err != nil {
+			t.Fatal(err)
 		}
 	})
 }

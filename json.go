@@ -36,5 +36,5 @@ func (n NullRawMessage) Value() (driver.Value, error) {
 	if !n.Valid {
 		return nil, nil
 	}
-	return n.RawMessage, nil
+	return []byte(n.RawMessage), nil
 }
