@@ -35,7 +35,7 @@ func TestInet(t *testing.T) {
 			if diff := cmp.Diff(addr, ip.IPNet.String()); diff != "" {
 				t.Errorf("IPNet mismatch (-want +got):\n%s", diff)
 			}
-			if _, err := db.Exec(`SELECT $1`, ip); err != nil {
+			if _, err := db.Exec(`SELECT abbrev($1)`, ip); err != nil {
 				t.Fatal(err)
 			}
 		})
@@ -48,7 +48,7 @@ func TestInet(t *testing.T) {
 		if diff := cmp.Diff(false, ip.Valid); diff != "" {
 			t.Errorf("valid mismatch (-want +got):\n%s", diff)
 		}
-		if _, err := db.Exec(`SELECT $1`, ip); err != nil {
+		if _, err := db.Exec(`SELECT abbrev($1)`, ip); err != nil {
 			t.Fatal(err)
 		}
 	})
