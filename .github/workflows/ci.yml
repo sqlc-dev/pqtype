@@ -11,6 +11,9 @@ jobs:
     services:
       postgres:
         image: postgres:${{matrix.postgres}}
+        credentials:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
