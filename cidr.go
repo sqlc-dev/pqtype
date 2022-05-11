@@ -1,6 +1,9 @@
 package pqtype
 
-import "fmt"
+import (
+	"database/sql/driver"
+	"fmt"
+)
 
 type CIDR Inet
 
@@ -30,4 +33,8 @@ func (dst *CIDR) Scan(src interface{}) error {
 	}
 
 	return fmt.Errorf("cannot scan %T", src)
+}
+
+func (src CIDR) Value() (driver.Value, error) {
+	return Inet(src).Value()
 }
