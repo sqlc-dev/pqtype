@@ -1,3 +1,3 @@
-module github.com/tabbed/pqtype
+module github.com/sqlc-dev/pqtype
 
 go 1.13

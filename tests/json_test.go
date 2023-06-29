@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/tabbed/pqtype"
+	"github.com/sqlc-dev/pqtype"
 )
 
 func TestJSONRawMessage(t *testing.T) {

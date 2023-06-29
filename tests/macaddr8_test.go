@@ -1,3 +1,4 @@
+//go:build !postgres9.6
 // +build !postgres9.6
 
 package tests
@@ -7,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/tabbed/pqtype"
+	"github.com/sqlc-dev/pqtype"
 )
 
 // https://www.postgresql.org/docs/current/datatype-net-types.html#DATATYPE-MACADDR8

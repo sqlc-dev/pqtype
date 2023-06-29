@@ -1,5 +1,5 @@
-[![Go Reference](https://pkg.go.dev/badge/github.com/tabbed/pqtype.svg)](https://pkg.go.dev/github.com/tabbed/pqtype)
-[![go](https://github.com/tabbed/pqtype/actions/workflows/ci.yml/badge.svg)](https://github.com/tabbed/pqtype/actions/workflows/ci.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/sqlc-dev/pqtype.svg)](https://pkg.go.dev/github.com/sqlc-dev/pqtype)
+[![go](https://github.com/sqlc-dev/pqtype/actions/workflows/ci.yml/badge.svg)](https://github.com/sqlc-dev/pqtype/actions/workflows/ci.yml)
 
 # pqtype
 
